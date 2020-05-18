@@ -1,0 +1,29 @@
+{
+  "name": "node-api",
+  "version": "1.0.0",
+  "description": "api built using node",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NathanBarsoti8/node-api.git"
+  },
+  "keywords": [],
+  "author": "Nathan Barsoti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NathanBarsoti8/node-api/issues"
+  },
+  "homepage": "https://github.com/NathanBarsoti8/node-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^5.21.9",
+    "tedious": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^5.5.1"
+  }
+}
