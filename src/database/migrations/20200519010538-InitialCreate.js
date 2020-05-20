@@ -133,7 +133,7 @@ module.exports = {
             allowNull: false
           },
           Sex: {
-            type: Sequelize.BOOLEAN,
+            type: Sequelize.STRING(1),
             allowNull: false
           },
           AddressId: {
