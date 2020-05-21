@@ -3,7 +3,10 @@ const { Model, DataTypes } = require('sequelize');
 class Scheduling extends Model {
     static init(sequelize) {
         super.init({
-            Id: DataTypes.UUID,
+            Id: {
+                type: DataTypes.UUID,
+                primaryKey: true
+            },
             ClientId: DataTypes.UUID,
             Date: DataTypes.DATE,
             StarTime: DataTypes.DATE,

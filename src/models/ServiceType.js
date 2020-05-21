@@ -3,8 +3,11 @@ const { Model, DataTypes } = require('sequelize');
 class ServiceType extends Model {
     static init(sequelize) {
         super.init({
-            Id: DataTypes.INTEGER,
-            Nome: DataTypes.STRING
+            Id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true
+            },
+            Name: DataTypes.STRING
         }, {
             sequelize
         });

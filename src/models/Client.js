@@ -3,7 +3,10 @@ const { Model, DataTypes } = require('sequelize');
 class Client extends Model {
     static init(sequelize) {
         super.init({
-            Id: DataTypes.UUID,
+            Id: {
+                type: DataTypes.UUID,
+                primaryKey: true
+            },
             Name: DataTypes.STRING,
             Cpf: DataTypes.STRING,
             BirthDate: DataTypes.DATE,

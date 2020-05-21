@@ -3,7 +3,10 @@ const { Model, DataTypes } = require('sequelize');
 class Location extends Model {
     static init(sequelize) {
         super.init({
-            Id: DataTypes.UUID,
+            Id: {
+                type: DataTypes.UUID,
+                primaryKey: true
+            },
             City: DataTypes.STRING,
             State: DataTypes.STRING
         }, {

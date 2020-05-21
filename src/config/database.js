@@ -9,5 +9,10 @@ module.exports = {
     host: 'localhost',
     username: 'sa',
     password: 'Senha_080798',
-    database: 'Application'
+    database: 'Application',
+    define: {
+        freezeTableName: true,
+        timestamps: false,
+        underscored: false
+    }
 }
