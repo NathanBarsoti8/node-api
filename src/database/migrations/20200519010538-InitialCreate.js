@@ -50,6 +50,52 @@ module.exports = {
       ),
 
       queryInterface.createTable(
+        'Client', {
+          Id: {
+            type: Sequelize.UUID,
+            primaryKey: true,
+            allowNull: false
+          },
+          Name: {
+            type: Sequelize.STRING(30),
+            allowNull: false
+          },
+          Cpf: {
+            type: Sequelize.STRING(11),
+            allowNull: false
+          },
+          BirthDate: {
+            type: Sequelize.DATE,
+            allowNull: false
+          },
+          Sex: {
+            type: Sequelize.STRING(1),
+            allowNull: false
+          },
+          Email: {
+            type: Sequelize.STRING(100),
+            allowNull: true
+          },
+          Job: {
+            type: Sequelize.STRING(30),
+            allowNull: false
+          },
+          IsActive: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false
+          },
+          CreatedOn: {
+            type: Sequelize.DATE,
+            allowNull: false
+          },
+          UpdatedOn: {
+            type: Sequelize.DATE,
+            allowNull: false
+          }
+        }
+      ),
+
+      queryInterface.createTable(
         'Phone', {
           Id: {
             type: Sequelize.UUID,
@@ -71,6 +117,14 @@ module.exports = {
           Number: {
             type: Sequelize.STRING(9),
             allowNull: false
+          },
+          ClientId: {
+            type: Sequelize.UUID,
+            allowNull: false,
+            references: {
+              model: 'Client',
+              key: 'Id'
+            }
           }
         }
       ),
@@ -109,68 +163,14 @@ module.exports = {
           Complement: {
             type: Sequelize.STRING(30),
             allowNull: true
-          }
-        }
-      ),
-
-      queryInterface.createTable(
-        'Client', {
-          Id: {
-            type: Sequelize.UUID,
-            primaryKey: true,
-            allowNull: false
           },
-          Name: {
-            type: Sequelize.STRING(30),
-            allowNull: false
-          },
-          Cpf: {
-            type: Sequelize.STRING(11),
-            allowNull: false
-          },
-          BirthDate: {
-            type: Sequelize.DATE,
-            allowNull: false
-          },
-          Sex: {
-            type: Sequelize.STRING(1),
-            allowNull: false
-          },
-          AddressId: {
+          ClientId: {
             type: Sequelize.UUID,
             allowNull: false,
             references: {
-              model: 'Address',
+              model: 'Client',
               key: 'Id'
             }
-          },
-          PhoneId: {
-            type: Sequelize.UUID,
-            allowNull: false,
-            references: {
-              model: 'Phone',
-              key: 'Id'
-            }
-          },
-          Email: {
-            type: Sequelize.STRING(100),
-            allowNull: true
-          },
-          Job: {
-            type: Sequelize.STRING(30),
-            allowNull: false
-          },
-          IsActive: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false
-          },
-          CreatedOn: {
-            type: Sequelize.DATE,
-            allowNull: false
-          },
-          UpdatedOn: {
-            type: Sequelize.DATE,
-            allowNull: false
           }
         }
       ),
@@ -227,9 +227,9 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.dropTable('Scheduling'),
-      queryInterface.dropTable('Client'),
       queryInterface.dropTable('Address'),
       queryInterface.dropTable('Phone'),
+      queryInterface.dropTable('Client'),
       queryInterface.dropTable('PhoneType'),
       queryInterface.dropTable('Location'),
       queryInterface.dropTable('ServiceType')

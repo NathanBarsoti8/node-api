@@ -9,7 +9,8 @@ class Phone extends Model {
             },
             TypeId: DataTypes.INTEGER,
             DDD: DataTypes.STRING,
-            Number: DataTypes.STRING
+            Number: DataTypes.STRING,
+            ClientId: DataTypes.UUID
         }, {
             sequelize
         });

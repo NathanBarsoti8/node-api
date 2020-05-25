@@ -4,12 +4,13 @@ module.exports = {
         options: {
             useUTC: false,
             dateFirst: 1,
+            encrypt: true   //use this for Azure database encryption
         }
     },
-    host: 'localhost',
-    username: 'sa',
-    password: 'Senha_080798',
-    database: 'Application',
+    host: 'mysqlserver-application.database.windows.net',
+    username: 'azureuser',
+    password: 'Senha_010203',
+    database: 'NodeApplication',
     define: {
         freezeTableName: true,
         timestamps: false,

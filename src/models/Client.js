@@ -11,8 +11,6 @@ class Client extends Model {
             Cpf: DataTypes.STRING,
             BirthDate: DataTypes.DATE,
             Sex: DataTypes.STRING,
-            AddressId: DataTypes.UUID,
-            PhoneId: DataTypes.UUID,
             Email: DataTypes.STRING,
             Job: DataTypes.STRING,
             IsActive: DataTypes.BOOLEAN,

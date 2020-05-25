@@ -12,7 +12,8 @@ class Address extends Model {
             Address: DataTypes.STRING,
             Number: DataTypes.INTEGER,
             Neighborhood: DataTypes.STRING,
-            Complement: DataTypes.STRING
+            Complement: DataTypes.STRING,
+            ClientId: DataTypes.UUID
         }, {
             sequelize
         });
