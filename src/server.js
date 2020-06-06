@@ -20,7 +20,3 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.listen(port, function() {
     console.log(`API LISTENING ON PORT ${port}`);
 });
-
-app.get('/', function(req, res) {
-    res.send(`TESTANDO`);
-})

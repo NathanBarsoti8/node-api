@@ -7,7 +7,7 @@ const ClientsController = require('./controllers/ClientsController');
 
 
 routes.get('/', (req, res) => {
-    return res.json({ hello: 'World' });
+    return res.json({ msg: 'Api em Node.js para se comunicar com uma aplicação Angular - Dentist Control' });
 });
 
 //ROUTES
