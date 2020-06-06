@@ -7,10 +7,10 @@ module.exports = {
             encrypt: true   //use this for Azure database encryption
         }
     },
-    host: 'mysqlserver-application.database.windows.net',
-    username: 'azureuser',
+    host: 'dc-application.database.windows.net',
+    username: 'dc-user',
     password: 'Senha_010203',
-    database: 'NodeApplication',
+    database: 'DCApplication',
     define: {
         freezeTableName: true,
         timestamps: false,

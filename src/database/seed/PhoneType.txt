@@ -3,3 +3,8 @@ Id	Name
 2	Home
 3	Emergency
 4	Other
+
+insert into PhoneType values (1, 'Mobile')
+insert into PhoneType values (2, 'Home')
+insert into PhoneType values (3, 'Emergency')
+insert into PhoneType values (4, 'Other')

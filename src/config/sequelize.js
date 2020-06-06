@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('NodeApplication', 'azureuser', 'Senha_010203', {
-    host: 'mysqlserver-application.database.windows.net',
+const sequelize = new Sequelize('DCApplication', 'dc-user', 'Senha_010203', {
+    host: 'dc-application.database.windows.net',
     dialect: 'mssql',
     dialectOptions: {
         options: {
