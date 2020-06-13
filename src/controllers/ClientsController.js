@@ -1,8 +1,9 @@
 const Client = require('../models/Client');
 const sequelize = require('../config/sequelize');
 const { v4: uuidv4 } = require('uuid');
+const AddressController = require('./AddressController');
 
-class Clients {
+class ClientsController {
     getAll(req, res) {
         Client.findAll({
                 where: {
@@ -56,18 +57,24 @@ class Clients {
 
         client = req.body
         client.Id = uuidv4(),
-        client.IsActive = true,
-        client.CreatedOn = new Date(),
-        client.UpdatedOn = new Date()
+            client.IsActive = true,
+            client.CreatedOn = new Date(),
+            client.UpdatedOn = new Date()
 
         Client.create(client)
             .then(client => {
-                if (client)
+                if (client) {
+                    AddressController.create(client);
                     return res.status(200).send()
+                }
+
+
+
+
             })
             .catch(error => res.json(error));
     }
 }
 
 
-module.exports = new Clients();
+module.exports = new ClientsController();

@@ -1,7 +1,7 @@
 const PhoneType = require('../models/PhoneType');
 const ServiceType = require('../models/ServiceType');
 
-class Resources {
+class ResourcesController {
     getPhonesType(req, res) {
         PhoneType.findAll()
             .then(types => {
@@ -25,4 +25,4 @@ class Resources {
     }
 }
 
-module.exports = new Resources();
+module.exports = new ResourcesController();
