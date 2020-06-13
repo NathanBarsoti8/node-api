@@ -14,9 +14,9 @@ class AddressController {
         address.ClientId = obj.ClientId;
 
         Address.create(address)
-            .then(address => {
-                if (address)
-                    return address;
+            .then(result => {
+                if (result)
+                    return result;
                 else
                     return null;
             });

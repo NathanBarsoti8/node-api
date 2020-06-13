@@ -2,6 +2,7 @@ const Client = require('../models/Client');
 const sequelize = require('../config/sequelize');
 const { v4: uuidv4 } = require('uuid');
 const AddressController = require('./AddressController');
+const PhoneController = require('./PhoneController');
 
 class ClientsController {
     getAll(req, res) {
@@ -43,7 +44,6 @@ class ClientsController {
     
         WHERE C.Id = '${req.params.id}'`)
             .then(client => {
-
                 if (client[0] == null || client[0].length == 0)
                     return res.status(404).send();
 
@@ -57,20 +57,21 @@ class ClientsController {
 
         client = req.body
         client.Id = uuidv4(),
-            client.IsActive = true,
-            client.CreatedOn = new Date(),
-            client.UpdatedOn = new Date()
+        client.IsActive = true,
+        client.CreatedOn = new Date(),
+        client.UpdatedOn = new Date()
 
         Client.create(client)
-            .then(client => {
-                if (client) {
-                    AddressController.create(client);
-                    return res.status(200).send()
+            .then(result => {
+                if (result) {
+                    let address = AddressController.create(client);
+                    let phone = PhoneController.create(client);
+
+                    if (address && phone)
+                        return res.status(200).send();
+                    else
+                        return res.status(400).send();
                 }
-
-
-
-
             })
             .catch(error => res.json(error));
     }
