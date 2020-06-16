@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize')
 
 const sequelize = new Sequelize('DCApplication', 'dc-user', 'Senha_010203', {
-    host: 'dc-application.database.windows.net',
+    //host: 'dc-application.database.windows.net',
+    host: 'dc-app.database.windows.net',
     dialect: 'mssql',
     dialectOptions: {
         options: {

@@ -3,14 +3,14 @@ const { Model, DataTypes } = require('sequelize');
 class Phone extends Model {
     static init(sequelize) {
         super.init({
-            Id: {
+            id: {
                 type: DataTypes.UUID,
                 primaryKey: true
             },
-            TypeId: DataTypes.INTEGER,
+            typeId: DataTypes.INTEGER,
             DDD: DataTypes.STRING,
-            Number: DataTypes.STRING,
-            ClientId: DataTypes.UUID
+            number: DataTypes.STRING,
+            clientId: DataTypes.UUID
         }, {
             sequelize
         });

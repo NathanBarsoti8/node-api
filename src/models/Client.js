@@ -3,19 +3,19 @@ const { Model, DataTypes } = require('sequelize');
 class Client extends Model {
     static init(sequelize) {
         super.init({
-            Id: {
+            id: {
                 type: DataTypes.UUID,
                 primaryKey: true
             },
-            Name: DataTypes.STRING,
-            Cpf: DataTypes.STRING,
-            BirthDate: DataTypes.DATE,
-            Sex: DataTypes.STRING,
-            Email: DataTypes.STRING,
-            Job: DataTypes.STRING,
-            IsActive: DataTypes.BOOLEAN,
-            CreatedOn: DataTypes.DATE,
-            UpdatedOn: DataTypes.DATE
+            name: DataTypes.STRING,
+            cpf: DataTypes.STRING,
+            birthDate: DataTypes.DATE,
+            sex: DataTypes.STRING,
+            email: DataTypes.STRING,
+            job: DataTypes.STRING,
+            isActive: DataTypes.BOOLEAN,
+            createdOn: DataTypes.DATE,
+            updatedOn: DataTypes.DATE
         }, {
             sequelize
         });

@@ -18,24 +18,6 @@ module.exports = {
       ),
 
       queryInterface.createTable(
-        'Location', {
-          Id: {
-            type: Sequelize.UUID,
-            primaryKey: true,
-            allowNull: false
-          },
-          City: {
-            type: Sequelize.STRING(30),
-            allowNull: false
-          },
-          State: {
-            type: Sequelize.STRING(30),
-            allowNull: false
-          }
-        }
-      ),
-
-      queryInterface.createTable(
         'PhoneType', {
           Id: {
             type: Sequelize.INTEGER,
@@ -140,13 +122,13 @@ module.exports = {
             type: Sequelize.BIGINT(10),
             allowNull: false,
           },
-          LocationId: {
-            type: Sequelize.UUID,
+          State: {
+            type: Sequelize.STRING(30),
             allowNull: false,
-            references: {
-              model: 'Location',
-              key: 'Id'
-            }
+          },
+          City: {
+            type: Sequelize.STRING(40),
+            allowNull: false
           },
           Address: {
             type: Sequelize.STRING(100),
@@ -231,7 +213,6 @@ module.exports = {
       queryInterface.dropTable('Phone'),
       queryInterface.dropTable('Client'),
       queryInterface.dropTable('PhoneType'),
-      queryInterface.dropTable('Location'),
       queryInterface.dropTable('ServiceType')
     ])
   }

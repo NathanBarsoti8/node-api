@@ -3,11 +3,11 @@ const { Model, DataTypes } = require('sequelize');
 class PhoneType extends Model {
     static init(sequelize) {
         super.init({
-            Id: {
+            id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true
             },
-            Name: DataTypes.STRING
+            name: DataTypes.STRING
         }, {
             sequelize
         });

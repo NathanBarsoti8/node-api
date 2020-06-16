@@ -3,17 +3,18 @@ const { Model, DataTypes } = require('sequelize');
 class Address extends Model {
     static init(sequelize) {
         super.init({
-            Id: {
+            id: {
                 type: DataTypes.UUID,
                 primaryKey: true
             },
-            ZipCode: DataTypes.STRING,
-            LocationId: DataTypes.UUID,
-            Address: DataTypes.STRING,
-            Number: DataTypes.INTEGER,
-            Neighborhood: DataTypes.STRING,
-            Complement: DataTypes.STRING,
-            ClientId: DataTypes.UUID
+            zipCode: DataTypes.STRING,
+            state: DataTypes.STRING,
+            city: DataTypes.STRING,
+            address: DataTypes.STRING,
+            number: DataTypes.INTEGER,
+            neighborhood: DataTypes.STRING,
+            complement: DataTypes.STRING,
+            clientId: DataTypes.UUID
         }, {
             sequelize
         });

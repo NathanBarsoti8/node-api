@@ -8,7 +8,7 @@ class ClientsController {
     getAll(req, res) {
         Client.findAll({
                 where: {
-                    IsActive: 1
+                    isActive: 1
                 }
             })
             .then(clients => {
@@ -22,15 +22,15 @@ class ClientsController {
 
     getById(req, res) {
         sequelize.query(`SELECT
-        C.Id AS ClientId, C.Name, C.Cpf, C.BirthDate,
-        C.Sex, C.Email, C.Job, C.IsActive,
+        C.Id AS clientId, C.name, C.cpf, C.birthDate,
+        C.sex, C.email, C.job, C.isActive,
     
-        P.Id as PhoneId, P.Number as PhoneNumber,
-	    PT.Name as PhoneType, P.DDD,
+        P.Id as phoneId, P.Number as phoneNumber,
+	    PT.Name as phoneType, P.DDD,
     
-        A.Id as AddressId, A.ZipCode, A.Address,
-        A.Number as AddressNumber, A.Neighborhood, 
-        A.Complement, LOC.City, LOC.State
+        A.Id as addressId, A.zipCode, A.address,
+        A.Number as addressNumber, A.neighborhood, 
+        A.complement, A.city, A.state
     
         FROM Client C
         LEFT JOIN Phone P
@@ -39,11 +39,12 @@ class ClientsController {
         ON P.TypeId = PT.Id
         LEFT JOIN Address A
         ON C.Id = A.ClientId
-        LEFT JOIN Location LOC
-        ON A.LocationId = LOC.Id
     
         WHERE C.Id = '${req.params.id}'`)
             .then(client => {
+
+                console.log(client[0]);
+
                 if (client[0] == null || client[0].length == 0)
                     return res.status(404).send();
 
@@ -56,22 +57,21 @@ class ClientsController {
         let client = new Client();
 
         client = req.body
-        client.Id = uuidv4(),
-        client.IsActive = true,
-        client.CreatedOn = new Date(),
-        client.UpdatedOn = new Date()
+        client.id = uuidv4(),
+        client.isActive = true,
+        client.createdOn = new Date(),
+        client.updatedOn = new Date()
 
         Client.create(client)
             .then(result => {
                 if (result) {
-                    let address = AddressController.create(client);
-                    let phone = PhoneController.create(client);
+                    AddressController.create(client);
+                    PhoneController.create(client);
 
-                    if (address && phone)
-                        return res.status(200).send();
-                    else
-                        return res.status(400).send();
+                    return res.status(200).send(client.id);
                 }
+                else
+                    return res.status(400).send();
             })
             .catch(error => res.json(error));
     }

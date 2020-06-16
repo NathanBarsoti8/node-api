@@ -5,16 +5,16 @@ class PhoneController {
     create(obj) {
         let phone = new Phone();
 
-        phone.Id = uuidv4();
-        phone.TypeId = obj.TypeId;
-        phone.DDD = obj.DDD;
-        phone.Number = obj.Number;
-        phone.ClientId = obj.ClientId;
+        phone.id = uuidv4();
+        phone.typeId = obj.phoneType;
+        phone.DDD = obj.ddd;
+        phone.number = obj.phoneNumber;
+        phone.clientId = obj.id;
 
-        Phone.create(phone)
+        Phone.create(phone.dataValues)
             .then(result => {
                 if (result)
-                    return result;
+                    return result.dataValues;
                 else
                     return null;
             });

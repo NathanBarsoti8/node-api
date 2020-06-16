@@ -5,18 +5,20 @@ class AddressController {
     create(obj) {
         let address = new Address();
 
-        address.Id = uuidv4();
-        address.ZipCode = obj.ZipCode;
-        address.Address = obj.Address;
-        address.Number = obj.Number;
-        address.Neighborhood = obj.Neighborhood;
-        address.Complement = obj.Complement;
-        address.ClientId = obj.ClientId;
+        address.id = uuidv4();
+        address.zipCode = obj.zipCode;
+        address.state = obj.state;
+        address.city = obj.city;
+        address.address = obj.address;
+        address.number = obj.addressNumber;
+        address.neighborhood = obj.neighborhood;
+        address.complement = obj.complement;
+        address.clientId = obj.id;
 
-        Address.create(address)
+        Address.create(address.dataValues)
             .then(result => {
                 if (result)
-                    return result;
+                    return result.dataValues;
                 else
                     return null;
             });
