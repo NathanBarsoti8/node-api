@@ -4,8 +4,22 @@ const { v4: uuidv4 } = require('uuid');
 const AddressController = require('./AddressController');
 const PhoneController = require('./PhoneController');
 
+class Paginated {
+    next;
+    previous;
+    data;
+}
+
 class ClientsController {
     getAll(req, res) {
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        const result = new Paginated();
+
         Client.findAll({
                 where: {
                     isActive: 1
@@ -15,7 +29,15 @@ class ClientsController {
                 if (clients == null || clients.length == 0)
                     return res.status(204).send();
 
-                return res.json(clients);
+                if (endIndex < clients.length) 
+                    result.next = page + 1
+                
+                if (startIndex > 0) 
+                    result.previous = page - 1
+
+                result.data = clients.slice(startIndex, endIndex)
+
+                return res.json(result);
             })
             .catch(error => res.json(error));
     }
@@ -69,13 +91,14 @@ class ClientsController {
                     PhoneController.create(client);
 
                     return res.status(200).send(client.id);
-                }
-                else
+                } else
                     return res.status(400).send();
             })
             .catch(error => res.json(error));
     }
 }
+
+
 
 
 module.exports = new ClientsController();
