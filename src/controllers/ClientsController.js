@@ -13,7 +13,10 @@ class ClientsController {
         Client.findAll({
                 where: {
                     isActive: 1
-                }
+                },
+                order: [
+                    ['name', 'ASC']
+                ]
             })
             .then(clients => {
                 if (clients == null || clients.length == 0)
