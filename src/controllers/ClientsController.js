@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const AddressController = require('./AddressController');
 const PhoneController = require('./PhoneController');
 const paginate = require('jw-paginate');
+const { Op } = require('sequelize');
 
 class ClientsController {
     getAll(req, res) {
@@ -12,7 +13,10 @@ class ClientsController {
 
         Client.findAll({
                 where: {
-                    isActive: 1
+                    isActive: 1,
+                    name: {
+                        [Op.like]: `%${req.query.search}%`
+                    }
                 },
                 order: [
                     ['name', 'ASC']
