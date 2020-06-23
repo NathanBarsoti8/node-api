@@ -10,10 +10,16 @@ class ClientsController {
     getAll(req, res) {
         const page = parseInt(req.query.page);
         const pageSize = 10;
+        let status;
 
+        if (req.query.status === 'false')
+            status = 0;
+        else
+            status = 1;
+        
         Client.findAll({
                 where: {
-                    isActive: 1,
+                    isActive: status,
                     name: {
                         [Op.like]: `%${req.query.search}%`
                     }
