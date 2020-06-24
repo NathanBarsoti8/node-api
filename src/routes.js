@@ -17,6 +17,7 @@ routes.get('/resources/servicesType', ResourcesController.getServicesType);
 routes.get('/clients', ClientsController.getAll);
 routes.get('/clients/:id', ClientsController.getById);
 routes.post('/clients', ClientsController.create);
+routes.put('/clients/:id/changeStatus', ClientsController.changeStatusById);
 
 
 module.exports = routes;

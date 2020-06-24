@@ -94,9 +94,29 @@ class ClientsController {
             })
             .catch(error => res.json(error));
     }
+
+    changeStatusById(req, res) {
+        Client.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(client => {
+
+            if (client.dataValues.isActive == false)
+                client.dataValues.isActive = 1
+            else
+                client.dataValues.isActive = 0
+
+            client.update({
+                isActive: client.dataValues.isActive
+            })
+            
+            return res.status(200).send(client);
+        });
+    }
+
 }
-
-
 
 
 module.exports = new ClientsController();
