@@ -5,6 +5,7 @@ const AddressController = require('./AddressController');
 const PhoneController = require('./PhoneController');
 const paginate = require('jw-paginate');
 const { Op } = require('sequelize');
+const Phone = require('../models/Phone');
 
 class ClientsController {
     getAll(req, res) {
@@ -114,6 +115,19 @@ class ClientsController {
             
             return res.status(200).send(client);
         });
+    }
+
+    update(req, res) {
+        Client.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(client => {
+            if (client) {
+                client.update(req.body);
+            }
+        })
     }
 
 }
