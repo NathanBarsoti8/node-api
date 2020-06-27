@@ -66,11 +66,11 @@ module.exports = {
             type: Sequelize.BOOLEAN,
             allowNull: false
           },
-          CreatedOn: {
+          CreatedAt: {
             type: Sequelize.DATE,
             allowNull: false
           },
-          UpdatedOn: {
+          UpdatedAt: {
             type: Sequelize.DATE,
             allowNull: false
           }
@@ -107,6 +107,14 @@ module.exports = {
               model: 'Client',
               key: 'Id'
             }
+          },
+          CreatedAt: {
+            type: Sequelize.DATE,
+            allowNull: false
+          },
+          UpdatedAt: {
+            type: Sequelize.DATE,
+            allowNull: false
           }
         }
       ),
@@ -153,6 +161,14 @@ module.exports = {
               model: 'Client',
               key: 'Id'
             }
+          },
+          CreatedAt: {
+            type: Sequelize.DATE,
+            allowNull: false
+          },
+          UpdatedAt: {
+            type: Sequelize.DATE,
+            allowNull: false
           }
         }
       ),
@@ -192,11 +208,11 @@ module.exports = {
               key: 'Id'
             }
           },
-          CreatedOn: {
+          CreatedAt: {
             type: Sequelize.DATE,
             allowNull: false
           },
-          UpdatedOn: {
+          UpdatedAt: {
             type: Sequelize.DATE,
             allowNull: false
           }

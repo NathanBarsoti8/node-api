@@ -14,7 +14,7 @@ module.exports = {
     database: 'DCApplication',
     define: {
         freezeTableName: true,
-        timestamps: false,
+        timestamps: true,
         underscored: false
     }
 }

@@ -13,9 +13,7 @@ class Client extends Model {
             sex: DataTypes.STRING,
             email: DataTypes.STRING,
             job: DataTypes.STRING,
-            isActive: DataTypes.BOOLEAN,
-            createdOn: DataTypes.DATE,
-            updatedOn: DataTypes.DATE
+            isActive: DataTypes.BOOLEAN
         }, {
             sequelize
         });

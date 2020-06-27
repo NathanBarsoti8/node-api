@@ -11,9 +11,7 @@ class Scheduling extends Model {
             date: DataTypes.DATE,
             starTime: DataTypes.DATE,
             finishTime: DataTypes.DATE,
-            serviceTypeId: DataTypes.INTEGER,
-            createdOn: DataTypes.DATE,
-            updatedOn: DataTypes.DATE
+            serviceTypeId: DataTypes.INTEGER
         }, {
             sequelize
         });
