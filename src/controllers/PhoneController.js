@@ -8,7 +8,7 @@ class PhoneController {
         phone.id = uuidv4();
         phone.typeId = obj.phoneType;
         phone.DDD = obj.ddd;
-        phone.number = obj.phoneNumber;
+        phone.phoneNumber = obj.phoneNumber;
         phone.clientId = obj.id;
 
         Phone.create(phone.dataValues)
@@ -18,6 +18,21 @@ class PhoneController {
                 else
                     return null;
             });
+    }
+
+    updateByCustomerId(clientId, obj) {
+        Phone.findOne({
+            where: {
+                clientId: clientId
+            }
+        })
+        .then(phone => {
+            if (phone) {
+                phone.update(obj);
+
+                return phone;
+            }
+        })
     }
 }
 

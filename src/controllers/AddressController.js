@@ -10,7 +10,7 @@ class AddressController {
         address.state = obj.state;
         address.city = obj.city;
         address.address = obj.address;
-        address.number = obj.addressNumber;
+        address.addressNumber = obj.addressNumber;
         address.neighborhood = obj.neighborhood;
         address.complement = obj.complement;
         address.clientId = obj.id;
@@ -22,6 +22,21 @@ class AddressController {
                 else
                     return null;
             });
+    }
+
+    updateByCustomerId(clientId, obj) {
+        Address.findOne({
+            where: {
+                clientId: clientId
+            }
+        })
+        .then(address => {
+            if (address) {
+                address.update(obj);
+
+                return address;
+            }
+        })
     }
 }
 

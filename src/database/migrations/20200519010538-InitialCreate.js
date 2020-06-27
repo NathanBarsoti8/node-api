@@ -96,7 +96,7 @@ module.exports = {
             type: Sequelize.STRING(3),
             allowNull: false
           },
-          Number: {
+          PhoneNumber: {
             type: Sequelize.STRING(9),
             allowNull: false
           },
@@ -134,7 +134,7 @@ module.exports = {
             type: Sequelize.STRING(100),
             allowNull: false
           },
-          Number: {
+          AddressNumber: {
             type: Sequelize.INTEGER(4),
             allowNull: true
           },

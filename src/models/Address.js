@@ -11,7 +11,7 @@ class Address extends Model {
             state: DataTypes.STRING,
             city: DataTypes.STRING,
             address: DataTypes.STRING,
-            number: DataTypes.INTEGER,
+            addressNumber: DataTypes.INTEGER,
             neighborhood: DataTypes.STRING,
             complement: DataTypes.STRING,
             clientId: DataTypes.UUID

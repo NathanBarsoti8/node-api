@@ -5,7 +5,6 @@ const AddressController = require('./AddressController');
 const PhoneController = require('./PhoneController');
 const paginate = require('jw-paginate');
 const { Op } = require('sequelize');
-const Phone = require('../models/Phone');
 
 class ClientsController {
     getAll(req, res) {
@@ -31,14 +30,14 @@ class ClientsController {
             })
             .then(clients => {
                 if (clients == null || clients.length == 0)
-                    return res.status(204).send();
+                    return res.status(204).send({ msg: 'Nenhum dado encontrado'});
 
                 const pager = paginate(clients.length, page, pageSize);
                 const data = clients.slice(pager.startIndex, pager.endIndex + 1)
 
                 return res.json({ pager, data });
             })
-            .catch(error => res.json(error));
+            .catch(error => res.status(500).send({ msg: error }));
     }
 
     getById(req, res) {
@@ -67,11 +66,11 @@ class ClientsController {
                 console.log(client[0]);
 
                 if (client[0] == null || client[0].length == 0)
-                    return res.status(404).send();
+                    return res.status(404).send({ msg: 'Cliente não encontrado'});
 
                 return res.json(client[0]);
             })
-            .catch(error => res.json(error));
+            .catch(error => res.status(500).send({ msg: error }));
     }
 
     create(req, res) {
@@ -91,9 +90,9 @@ class ClientsController {
 
                     return res.status(200).send(client.id);
                 } else
-                    return res.status(400).send();
+                    return res.status(400).send({ msg: 'Ocorreu um erro ao salvar novo cliente'});
             })
-            .catch(error => res.json(error));
+            .catch(error => res.status(500).send({ msg: error }));
     }
 
     changeStatusById(req, res) {
@@ -113,8 +112,9 @@ class ClientsController {
                 isActive: client.dataValues.isActive
             })
             
-            return res.status(200).send(client);
-        });
+            return res.status(200).send({ msg: 'Status atualizado com sucesso'});
+        })
+        .catch(error => res.status(500).send({ msg: error }));
     }
 
     update(req, res) {
@@ -125,9 +125,18 @@ class ClientsController {
         })
         .then(client => {
             if (client) {
+
                 client.update(req.body);
+
+                AddressController.updateByCustomerId(req.params.id, req.body)
+                PhoneController.updateByCustomerId(req.params.id, req.body)
+
+                return res.status(200).send({ msg: 'Cliente atualizado com sucesso'})
             }
+            else
+                return res.status(404).send({ msg: 'Cliente não encontrado'})
         })
+        .catch(error => res.status(500).send({ msg: error }));
     }
 
 }

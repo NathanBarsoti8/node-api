@@ -18,6 +18,7 @@ routes.get('/clients', ClientsController.getAll);
 routes.get('/clients/:id', ClientsController.getById);
 routes.post('/clients', ClientsController.create);
 routes.put('/clients/:id/changeStatus', ClientsController.changeStatusById);
+routes.put('/clients/:id/update', ClientsController.update);
 
 
 module.exports = routes;
