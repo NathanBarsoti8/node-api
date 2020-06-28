@@ -45,11 +45,11 @@ class ClientsController {
         C.Id AS clientId, C.name, C.cpf, C.birthDate,
         C.sex, C.email, C.job, C.isActive,
     
-        P.Id as phoneId, P.Number as phoneNumber,
-	    PT.Name as phoneType, P.DDD,
+        P.Id as phoneId, P.phoneNumber, P.DDD,
+	    PT.Name as phoneType, PT.Id as phoneTypeId,
     
         A.Id as addressId, A.zipCode, A.address,
-        A.Number as addressNumber, A.neighborhood, 
+        A.addressNumber, A.neighborhood, 
         A.complement, A.city, A.state
     
         FROM Client C

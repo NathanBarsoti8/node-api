@@ -3,7 +3,9 @@ const ServiceType = require('../models/ServiceType');
 
 class ResourcesController {
     getPhonesType(req, res) {
-        PhoneType.findAll()
+        PhoneType.findAll({
+                attributes: ['id', 'name']
+            })
             .then(types => {
                 if (types == null || types.length == 0)
                     return res.status(204).send();
@@ -14,7 +16,9 @@ class ResourcesController {
     }
 
     getServicesType(req, res) {
-        ServiceType.findAll()
+        ServiceType.findAll({
+                attributes: ['id', 'name']
+            })
             .then(types => {
                 if (types == null || types.length == 0)
                     return res.status(204).send();

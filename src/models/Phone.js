@@ -8,7 +8,7 @@ class Phone extends Model {
                 primaryKey: true
             },
             typeId: DataTypes.INTEGER,
-            DDD: DataTypes.STRING,
+            ddd: DataTypes.STRING,
             phoneNumber: DataTypes.STRING,
             clientId: DataTypes.UUID
         }, {

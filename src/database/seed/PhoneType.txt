@@ -1,10 +1,10 @@
 Id	Name
-1	Mobile
-2	Home
-3	Emergency
-4	Other
+1	Celular
+2	Casa
+3	Emergência
+4	Outro
 
-insert into PhoneType values (1, 'Mobile')
-insert into PhoneType values (2, 'Home')
-insert into PhoneType values (3, 'Emergency')
-insert into PhoneType values (4, 'Other')
+insert into PhoneType values (1, 'Celular')
+insert into PhoneType values (2, 'Casa')
+insert into PhoneType values (3, 'Emergência')
+insert into PhoneType values (4, 'Outro')
