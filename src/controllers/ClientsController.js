@@ -86,7 +86,7 @@ class ClientsController {
                     AddressController.create(client);
                     PhoneController.create(client);
 
-                    return res.status(200).send(client.id);
+                    return res.status(200).send({ msg: 'Cliente salvo com sucesso' });
                 } else
                     return res.status(400).send({ msg: 'Ocorreu um erro ao salvar novo cliente'});
             })
