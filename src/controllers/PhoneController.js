@@ -7,7 +7,7 @@ class PhoneController {
 
         phone.id = uuidv4();
         phone.typeId = obj.phoneType;
-        phone.DDD = obj.ddd;
+        phone.ddd = obj.ddd;
         phone.phoneNumber = obj.phoneNumber;
         phone.clientId = obj.id;
 

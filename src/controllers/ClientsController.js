@@ -77,10 +77,8 @@ class ClientsController {
         let client = new Client();
 
         client = req.body
-        client.id = uuidv4(),
-        client.isActive = true,
-        client.createdOn = new Date(),
-        client.updatedOn = new Date()
+        client.id = uuidv4();
+        client.isActive = true;
 
         Client.create(client)
             .then(result => {
