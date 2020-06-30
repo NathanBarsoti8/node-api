@@ -63,8 +63,6 @@ class ClientsController {
         WHERE C.Id = '${req.params.id}'`)
             .then(client => {
 
-                console.log(client[0]);
-
                 if (client[0] == null || client[0].length == 0)
                     return res.status(404).send({ msg: 'Cliente não encontrado'});
 
@@ -138,6 +136,5 @@ class ClientsController {
     }
 
 }
-
 
 module.exports = new ClientsController();

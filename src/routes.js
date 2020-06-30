@@ -4,6 +4,7 @@ const routes = express.Router();
 //CONTROLLERS
 const ResourcesController = require('./controllers/ResourcesController');
 const ClientsController = require('./controllers/ClientsController');
+const SchedulingController = require('./controllers/SchedulingController');
 
 
 routes.get('/', (req, res) => {
