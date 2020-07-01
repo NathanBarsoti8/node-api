@@ -193,11 +193,11 @@ module.exports = {
             allowNull: false
           },
           StartTime: {
-            type: Sequelize.DATE,
+            type: Sequelize.TIME,
             allowNull: false
           },
           FinishTime: {
-            type: Sequelize.DATE,
+            type: Sequelize.TIME,
             allowNull: false
           },
           ServiceTypeId: {
