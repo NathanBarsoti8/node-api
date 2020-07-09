@@ -21,5 +21,7 @@ routes.post('/clients', ClientsController.create);
 routes.put('/clients/:id/changeStatus', ClientsController.changeStatusById);
 routes.put('/clients/:id/update', ClientsController.update);
 
+routes.post('/schedules', SchedulingController.create);
+routes.put('/schedules/:id', SchedulingController.update);
 
 module.exports = routes;

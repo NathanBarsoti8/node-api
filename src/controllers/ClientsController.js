@@ -129,8 +129,6 @@ class ClientsController {
 
                 return res.status(200).send({ msg: 'Cliente atualizado com sucesso'})
             }
-            else
-                return res.status(404).send({ msg: 'Cliente não encontrado'})
         })
         .catch(error => res.status(500).send({ msg: error }));
     }
