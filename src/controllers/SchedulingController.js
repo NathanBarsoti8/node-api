@@ -4,6 +4,9 @@ const { v4: uuidv4 } = require('uuid');
 class SchedulingController {
 
     create(req, res) {
+        if (req.body.startTime >= req.body.endTime)
+            return res.stauts(400).send({ msg: 'Não é possível inserir um horário de término maior que o inicial' });
+
         let scheduling = new Scheduling();
 
         scheduling = req.body
