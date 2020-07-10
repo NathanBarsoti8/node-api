@@ -29,8 +29,21 @@ class SchedulingController {
             if (scheduling) {
                 scheduling.update(req.body);
                 
-                return res.status(200).send({ msg: 'Consulta atualizada com sucesso'})
+                return res.status(200).send({ msg: 'Consulta atualizada com sucesso' });
             }
+        })
+        .catch(error => res.status(500).send({ msg: error }));
+    }
+
+    delete(req, res) {
+        Scheduling.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(scheduling => {
+            if (scheduling)
+                return res.status(200).send({ msg: 'Consulta deletada com sucesso' });
         })
         .catch(error => res.status(500).send({ msg: error }));
     }

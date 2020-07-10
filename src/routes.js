@@ -23,5 +23,6 @@ routes.put('/clients/:id/update', ClientsController.update);
 
 routes.post('/schedules', SchedulingController.create);
 routes.put('/schedules/:id', SchedulingController.update);
+routes.delete('/schedules/:id', SchedulingController.delete);
 
 module.exports = routes;
