@@ -6,6 +6,7 @@ class SchedulingController {
 
     async create(req, res) {
         let scheduling = new Scheduling();
+        let invalidTime;
 
         scheduling = req.body
         scheduling.id = uuidv4();
@@ -23,27 +24,34 @@ class SchedulingController {
         })
         .then(schedule => {
 
-            if (!schedule || schedule.length == 0) 
-                this.save(scheduling)
-            
+            if (!schedule || schedule.length == 0) {
+                Scheduling.create(scheduling)
+                    .then(result => {
+                        if (result)
+                            return res.status(200).send({ msg: 'Consulta marcada com sucesso' })
+                    })
+                    .catch(error => {
+                        return res.status(500).send({ msg: error })
+                    })
+            }
+                
             schedule.forEach(x => {
-                if (x.dataValues.time == scheduling.time)
-                    return res.status(400).send({ msg: 'Nesse horário já existe uma consulta' })
+                if (x.dataValues.timeTable == scheduling.timeTable)
+                    invalidTime = true;
             })
 
-            this.save(scheduling);
+            if (invalidTime)
+                return res.status(400).send({ msg: 'Nesse horário já existe uma consulta' })
+
+            Scheduling.create(scheduling)
+                .then(result => {
+                    if (result)
+                        return res.status(200).send({ msg: 'Consulta marcada com sucesso' });
+                })
+                .catch(error => {
+                    return res.status(500).send({ msg: error })
+                });
         });
-    }
-
-    save(obj) {
-        Scheduling.create(obj)
-            .then(result => {
-                if (result)
-                    return res.status(200).send({ msg: 'Consulta marcada com sucesso' });
-            })
-            .catch(error => {
-                return res.status(500).send({ msg: error })
-            });
     }
 
     update(req, res) {

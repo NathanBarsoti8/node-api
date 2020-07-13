@@ -21,6 +21,7 @@ routes.post('/clients', ClientsController.create);
 routes.put('/clients/:id/changeStatus', ClientsController.changeStatusById);
 routes.put('/clients/:id/update', ClientsController.update);
 
+// routes.get('/schedules', SchedulingController.getTest);
 routes.post('/schedules', SchedulingController.create);
 routes.put('/schedules/:id', SchedulingController.update);
 routes.delete('/schedules/:id', SchedulingController.delete);

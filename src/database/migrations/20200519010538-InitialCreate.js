@@ -192,8 +192,8 @@ module.exports = {
             type: Sequelize.DATE,
             allowNull: false
           },
-          Time: {
-            type: Sequelize.TIME,
+          TimeTable: {
+            type: Sequelize.STRING(5),
             allowNull: false
           },
           ServiceTypeId: {
