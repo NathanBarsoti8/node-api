@@ -41,16 +41,18 @@ class SchedulingController {
             })
 
             if (invalidTime)
-                return res.status(400).send({ msg: 'Nesse horário já existe uma consulta' })
+                return res.status(400).send({ msg: 'Nesse horário já existe uma consulta' });
 
-            Scheduling.create(scheduling)
-                .then(result => {
-                    if (result)
-                        return res.status(200).send({ msg: 'Consulta marcada com sucesso' });
-                })
-                .catch(error => {
-                    return res.status(500).send({ msg: error })
-                });
+            else {
+                Scheduling.create(scheduling)
+                    .then(result => {
+                        if (result)
+                            return res.status(200).send({ msg: 'Consulta marcada com sucesso' });
+                    })
+                    .catch(error => {
+                        return res.status(500).send({ msg: error })
+                    });
+            }
         });
     }
 
