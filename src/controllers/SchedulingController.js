@@ -1,8 +1,33 @@
 const Scheduling = require('../models/Scheduling');
+const sequelize = require('../config/sequelize');
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment'); 
 
 class SchedulingController {
+
+    getById(req, res) {
+        sequelize.query(`SELECT
+        S.Id as schedulingId, S.date, S.timeTable,
+        ST.Id as serviceTypeId,
+        
+		C.Id AS clientId, C.name
+    
+        FROM Scheduling S
+		INNER JOIN ServiceType ST
+		ON S.ServiceTypeId = ST.Id
+        INNER JOIN Client C
+        ON S.ClientId = C.Id
+    
+        WHERE S.Id = '${req.params.id}'`)
+            .then(schedule => {
+
+                if (schedule[0] == null || schedule[0].length == 0)
+                    return res.status(404).send({ msg: 'Consulta não encontrada'});
+
+                return res.json(schedule[0]);
+            })
+            .catch(error => res.status(500).send({ msg: error }));
+    }
 
     async create(req, res) {
         let scheduling = new Scheduling();
@@ -56,7 +81,7 @@ class SchedulingController {
         });
     }
 
-    async update(req, res) {
+    update(req, res) {
         if (req.body.date) {
             const today = moment(new Date(), "DD-MM-YYYY");
             const date = moment(new Date(req.body.date), "DD-MM-YYYY");
@@ -70,7 +95,7 @@ class SchedulingController {
                 id: req.params.id
             }
         })
-        .then(schedule => {
+        .then(async schedule => {
             if (req.body.timeTable) {
 
                 let dateFilter;
@@ -79,7 +104,7 @@ class SchedulingController {
                 if (req.body.date)
                     dateFilter = req.body.date
                 else
-                    dateFilter = schedule[0].date
+                    dateFilter = schedule.dataValues.date
 
                 await Scheduling.findAll({
                     where: dateFilter

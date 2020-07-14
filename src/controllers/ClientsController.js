@@ -42,7 +42,7 @@ class ClientsController {
 
     getById(req, res) {
         sequelize.query(`SELECT
-        C.Id AS clientId, C.name, C.cpf, C.birthDate,
+        C.Id as clientId, C.name, C.cpf, C.birthDate,
         C.sex, C.email, C.job, C.isActive,
     
         P.Id as phoneId, P.phoneNumber, P.DDD,
