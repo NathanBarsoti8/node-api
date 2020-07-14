@@ -1,6 +1,5 @@
-# Node
-> Dentist Control API
-> An API built in NodeJS with MSSQL to comunicate an Angular Application
+# Dentist Control API
+> An API built in NodeJS with MSSQL to comunicate with an Angular Application
 
 ## Instalação e Configuração para Desenvolvimento
 
@@ -33,7 +32,7 @@ Nathan Barsoti – [@nathanbarsoti_](https://twitter.com/...) – nathanbarsoti@
 
 ## Contribua
 
-1. Faça o _fork_ do projeto (<https://github.com/NathanBarsoti8/test-node/fork>)
+1. Faça o _fork_ do projeto (<https://github.com/NathanBarsoti8/dentist-control-api>)
 2. Crie uma _branch_ para sua modificação (`git checkout -b feature/<feature>`)
 3. Faça o _commit_ (`git commit -am 'Add some feature'`)
 4. _Push_ (`git push origin feature/feature`)
