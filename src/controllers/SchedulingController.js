@@ -8,9 +8,9 @@ class SchedulingController {
     getById(req, res) {
         sequelize.query(`SELECT
         S.Id as schedulingId, S.date, S.timeTable,
-        ST.Id as serviceTypeId,
+        ST.Id as serviceTypeId, ST.name as serviceType,
         
-		C.Id AS clientId, C.name
+		C.Id AS clientId, C.name as clientName
     
         FROM Scheduling S
 		INNER JOIN ServiceType ST

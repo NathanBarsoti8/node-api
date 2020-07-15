@@ -8,7 +8,7 @@ class Scheduling extends Model {
                 primaryKey: true
             },
             clientId: DataTypes.UUID,
-            date: DataTypes.DATE,
+            date: DataTypes.DATEONLY,
             timeTable: DataTypes.STRING,
             serviceTypeId: DataTypes.INTEGER
         }, {

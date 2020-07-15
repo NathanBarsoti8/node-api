@@ -9,7 +9,7 @@ class Client extends Model {
             },
             name: DataTypes.STRING,
             cpf: DataTypes.STRING,
-            birthDate: DataTypes.DATE,
+            birthDate: DataTypes.DATEONLY,
             sex: DataTypes.STRING,
             email: DataTypes.STRING,
             job: DataTypes.STRING,

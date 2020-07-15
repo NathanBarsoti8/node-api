@@ -47,7 +47,7 @@ module.exports = {
             allowNull: false
           },
           BirthDate: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATEONLY,
             allowNull: false
           },
           Sex: {
@@ -189,7 +189,7 @@ module.exports = {
             }
           },
           Date: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATEONLY,
             allowNull: false
           },
           TimeTable: {
