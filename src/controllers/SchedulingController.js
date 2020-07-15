@@ -48,7 +48,6 @@ class SchedulingController {
             }
         })
         .then(schedule => {
-
             if (!schedule || schedule.length == 0) {
                 Scheduling.create(scheduling)
                     .then(result => {
@@ -95,7 +94,7 @@ class SchedulingController {
                 id: req.params.id
             }
         })
-        .then(async schedule => {
+        .then(schedule => {
             if (req.body.timeTable) {
 
                 let dateFilter;
@@ -106,8 +105,10 @@ class SchedulingController {
                 else
                     dateFilter = schedule.dataValues.date
 
-                await Scheduling.findAll({
-                    where: dateFilter
+                Scheduling.findAll({
+                    where: {
+                        date: dateFilter
+                    }
                 })
                 .then(schedules => {
                     if (!schedules || schedules.length == 0) {
@@ -130,7 +131,7 @@ class SchedulingController {
                         return res.status(400).send({ msg: 'Nesse horário já existe uma consulta' });
 
                     else if (!invalidTime) {
-                        Scheduling.update(req.body)
+                        schedule.update(req.body)
                         .then(result => {
                             if (result)
                                 return res.status(200).send({ msg: 'Consulta alterada com sucesso' });
