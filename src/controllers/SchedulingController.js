@@ -2,9 +2,11 @@ const Scheduling = require('../models/Scheduling');
 const sequelize = require('../config/sequelize');
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment'); 
+const paginate = require('jw-paginate');
+const Client = require('../models/Client')
 
 class SchedulingController {
-
+    
     getById(req, res) {
         sequelize.query(`SELECT
         S.Id as schedulingId, S.date, S.timeTable,
@@ -154,7 +156,9 @@ class SchedulingController {
                     });      
             }
         })
-        .catch(error => res.status(500).send({ msg: error }));
+        .catch(error => {
+            return res.status(500).send({ msg: error })
+        });
     }
 
     delete(req, res) {

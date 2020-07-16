@@ -18,6 +18,10 @@ class Client extends Model {
             sequelize
         });
     }
+
+    static associate(models) {
+        this.hasOne(models.Scheduling);
+    }
 }
 
 module.exports = Client;

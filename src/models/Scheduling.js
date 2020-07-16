@@ -15,6 +15,10 @@ class Scheduling extends Model {
             sequelize
         });
     }
+
+    static associate(models) {
+        this.belongsTo(models.Client);
+    }
 }
 
 module.exports = Scheduling;

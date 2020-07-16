@@ -33,7 +33,7 @@ class ClientsController {
                     return res.status(204).send({ msg: 'Nenhum dado encontrado'});
 
                 const pager = paginate(clients.length, page, pageSize);
-                const data = clients.slice(pager.startIndex, pager.endIndex + 1)
+                const data = clients.slice(pager.startIndex, pager.endIndex + 1);
 
                 return res.json({ pager, data });
             })

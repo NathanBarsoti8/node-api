@@ -18,4 +18,7 @@ Address.init(connection);
 Client.init(connection);
 Scheduling.init(connection);
 
+Scheduling.associate(connection.models);
+Client.associate(connection.models);
+
 module.exports = connection;
