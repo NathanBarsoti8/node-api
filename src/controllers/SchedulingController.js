@@ -6,7 +6,30 @@ const paginate = require('jw-paginate');
 const Client = require('../models/Client')
 
 class SchedulingController {
-    
+    getAll(req, res) {
+        const page = parseInt(req.query.page);
+        const pageSize = 10;
+        
+        Scheduling.findAll({
+            include: [{
+                model: Client,
+                attributes: ["name"]
+            }]
+        })
+        .then(schedules => {
+            if (schedules == null || schedules.length == 0)
+                return res.status(204).send({ msg: 'Nenhum dado encontrado' });
+
+            const pager = paginate(schedules.length, page, pageSize);
+            const data = schedules.slice(pager.startIndex, pager.endIndex + 1);
+
+            return res.json({ pager, data });
+        })
+        .catch(error => {
+            return res.status(500).send({ msg: error })
+        });
+    }
+
     getById(req, res) {
         sequelize.query(`SELECT
         S.Id as schedulingId, S.date, S.timeTable,
