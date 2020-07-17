@@ -14,7 +14,7 @@ class Address extends Model {
             addressNumber: DataTypes.INTEGER,
             neighborhood: DataTypes.STRING,
             complement: DataTypes.STRING,
-            clientId: DataTypes.UUID
+            customerId: DataTypes.UUID
         }, {
             sequelize
         });

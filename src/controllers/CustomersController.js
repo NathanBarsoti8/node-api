@@ -1,4 +1,4 @@
-const Client = require('../models/Client');
+const Customer = require('../models/Customer');
 const sequelize = require('../config/sequelize');
 const { v4: uuidv4 } = require('uuid');
 const AddressController = require('./AddressController');
@@ -6,7 +6,7 @@ const PhoneController = require('./PhoneController');
 const paginate = require('jw-paginate');
 const { Op } = require('sequelize');
 
-class ClientsController {
+class CustomersController {
     getAll(req, res) {
         const page = parseInt(req.query.page);
         const pageSize = 10;
@@ -17,7 +17,7 @@ class ClientsController {
         else
             status = 1;
         
-        Client.findAll({
+        Customer.findAll({
                 where: {
                     isActive: status,
                     name: {
@@ -28,12 +28,12 @@ class ClientsController {
                     ['name', 'ASC']
                 ]
             })
-            .then(clients => {
-                if (clients == null || clients.length == 0)
+            .then(customers => {
+                if (customers == null || customers.length == 0)
                     return res.status(204).send({ msg: 'Nenhum dado encontrado'});
 
-                const pager = paginate(clients.length, page, pageSize);
-                const data = clients.slice(pager.startIndex, pager.endIndex + 1);
+                const pager = paginate(customers.length, page, pageSize);
+                const data = customers.slice(pager.startIndex, pager.endIndex + 1);
 
                 return res.json({ pager, data });
             })
@@ -42,7 +42,7 @@ class ClientsController {
 
     getById(req, res) {
         sequelize.query(`SELECT
-        C.Id as clientId, C.name, C.cpf, C.birthDate,
+        C.Id as customerId, C.name, C.cpf, C.birthDate,
         C.sex, C.email, C.job, C.isActive,
     
         P.Id as phoneId, P.phoneNumber, P.DDD,
@@ -52,37 +52,37 @@ class ClientsController {
         A.addressNumber, A.neighborhood, 
         A.complement, A.city, A.state
     
-        FROM Client C
+        FROM Customer C
         LEFT JOIN Phone P
-        ON C.Id = P.ClientId
+        ON C.Id = P.CustomerId
         LEFT JOIN PhoneType PT
         ON P.TypeId = PT.Id
         LEFT JOIN Address A
-        ON C.Id = A.ClientId
+        ON C.Id = A.CustomerId
     
         WHERE C.Id = '${req.params.id}'`)
-            .then(client => {
+            .then(customer => {
 
-                if (client[0] == null || client[0].length == 0)
+                if (customer[0] == null || customer[0].length == 0)
                     return res.status(404).send({ msg: 'Cliente não encontrado'});
 
-                return res.json(client[0]);
+                return res.json(customer[0]);
             })
             .catch(error => res.status(500).send({ msg: error }));
     }
 
     create(req, res) {
-        let client = new Client();
+        let customer = new Customer();
 
-        client = req.body
-        client.id = uuidv4();
-        client.isActive = true;
+        customer = req.body
+        customer.id = uuidv4();
+        customer.isActive = true;
 
-        Client.create(client)
+        Customer.create(customer)
             .then(result => {
                 if (result) {
-                    AddressController.create(client);
-                    PhoneController.create(client);
+                    AddressController.create(customer);
+                    PhoneController.create(customer);
 
                     return res.status(200).send({ msg: 'Cliente salvo com sucesso' });
                 } else
@@ -92,20 +92,20 @@ class ClientsController {
     }
 
     changeStatusById(req, res) {
-        Client.findOne({
+        Customer.findOne({
             where: {
                 id: req.params.id
             }
         })
-        .then(client => {
+        .then(customer => {
 
-            if (client.dataValues.isActive == false)
-                client.dataValues.isActive = 1
+            if (customer.dataValues.isActive == false)
+                customer.dataValues.isActive = 1
             else
-                client.dataValues.isActive = 0
+                customer.dataValues.isActive = 0
 
-            client.update({
-                isActive: client.dataValues.isActive
+            customer.update({
+                isActive: customer.dataValues.isActive
             })
             
             return res.status(200).send({ msg: 'Status atualizado com sucesso'});
@@ -114,15 +114,15 @@ class ClientsController {
     }
 
     update(req, res) {
-        Client.findOne({
+        Customer.findOne({
             where: {
                 id: req.params.id
             }
         })
-        .then(client => {
-            if (client) {
+        .then(customer => {
+            if (customer) {
 
-                client.update(req.body);
+                customer.update(req.body);
 
                 AddressController.updateByCustomerId(req.params.id, req.body)
                 PhoneController.updateByCustomerId(req.params.id, req.body)
@@ -135,4 +135,4 @@ class ClientsController {
 
 }
 
-module.exports = new ClientsController();
+module.exports = new CustomersController();

@@ -13,7 +13,7 @@ class AddressController {
         address.addressNumber = obj.addressNumber;
         address.neighborhood = obj.neighborhood;
         address.complement = obj.complement;
-        address.clientId = obj.id;
+        address.customerId = obj.id;
 
         Address.create(address.dataValues)
             .then(result => {
@@ -24,10 +24,10 @@ class AddressController {
             });
     }
 
-    updateByCustomerId(clientId, obj) {
+    updateByCustomerId(customerId, obj) {
         Address.findOne({
             where: {
-                clientId: clientId
+                customerId: customerId
             }
         })
         .then(address => {

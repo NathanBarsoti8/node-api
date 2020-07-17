@@ -3,7 +3,7 @@ const sequelize = require('../config/sequelize');
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment'); 
 const paginate = require('jw-paginate');
-const Client = require('../models/Client')
+const Customer = require('../models/Customer')
 
 class SchedulingController {
     getAll(req, res) {
@@ -12,7 +12,7 @@ class SchedulingController {
         
         Scheduling.findAll({
             include: [{
-                model: Client,
+                model: Customer,
                 attributes: ["name"]
             }]
         })
@@ -35,13 +35,13 @@ class SchedulingController {
         S.Id as schedulingId, S.date, S.timeTable,
         ST.Id as serviceTypeId, ST.name as serviceType,
         
-		C.Id AS clientId, C.name as clientName
+		C.Id AS customerId, C.name as customerName
     
         FROM Scheduling S
 		INNER JOIN ServiceType ST
 		ON S.ServiceTypeId = ST.Id
-        INNER JOIN Client C
-        ON S.ClientId = C.Id
+        INNER JOIN Customer C
+        ON S.CustomerId = C.Id
     
         WHERE S.Id = '${req.params.id}'`)
             .then(schedule => {

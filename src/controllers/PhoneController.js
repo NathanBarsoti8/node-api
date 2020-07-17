@@ -9,7 +9,7 @@ class PhoneController {
         phone.typeId = obj.phoneType;
         phone.ddd = obj.ddd;
         phone.phoneNumber = obj.phoneNumber;
-        phone.clientId = obj.id;
+        phone.customerId = obj.id;
 
         Phone.create(phone.dataValues)
             .then(result => {
@@ -20,10 +20,10 @@ class PhoneController {
             });
     }
 
-    updateByCustomerId(clientId, obj) {
+    updateByCustomerId(customerId, obj) {
         Phone.findOne({
             where: {
-                clientId: clientId
+                customerId: customerId
             }
         })
         .then(phone => {

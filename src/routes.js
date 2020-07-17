@@ -3,7 +3,7 @@ const routes = express.Router();
 
 //CONTROLLERS
 const ResourcesController = require('./controllers/ResourcesController');
-const ClientsController = require('./controllers/ClientsController');
+const CustomersController = require('./controllers/CustomersController');
 const SchedulingController = require('./controllers/SchedulingController');
 
 
@@ -15,11 +15,11 @@ routes.get('/', (req, res) => {
 routes.get('/resources/phonesType', ResourcesController.getPhonesType);
 routes.get('/resources/servicesType', ResourcesController.getServicesType);
 
-routes.get('/clients', ClientsController.getAll);
-routes.get('/clients/:id', ClientsController.getById);
-routes.post('/clients', ClientsController.create);
-routes.put('/clients/:id/changeStatus', ClientsController.changeStatusById);
-routes.put('/clients/:id/update', ClientsController.update);
+routes.get('/customers', CustomersController.getAll);
+routes.get('/customers/:id', CustomersController.getById);
+routes.post('/customers', CustomersController.create);
+routes.put('/customers/:id/changeStatus', CustomersController.changeStatusById);
+routes.put('/customers/:id/update', CustomersController.update);
 
 routes.get('/schedules', SchedulingController.getAll);
 routes.get('/schedules/:id', SchedulingController.getById);

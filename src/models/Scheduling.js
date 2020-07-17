@@ -7,7 +7,7 @@ class Scheduling extends Model {
                 type: DataTypes.UUID,
                 primaryKey: true
             },
-            clientId: DataTypes.UUID,
+            customerId: DataTypes.UUID,
             date: DataTypes.DATEONLY,
             timeTable: DataTypes.STRING,
             serviceTypeId: DataTypes.INTEGER
@@ -17,7 +17,7 @@ class Scheduling extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Client);
+        this.belongsTo(models.Customer);
     }
 }
 

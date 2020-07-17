@@ -32,7 +32,7 @@ module.exports = {
       ),
 
       queryInterface.createTable(
-        'Client', {
+        'Customer', {
           Id: {
             type: Sequelize.UUID,
             primaryKey: true,
@@ -100,11 +100,11 @@ module.exports = {
             type: Sequelize.STRING(9),
             allowNull: false
           },
-          ClientId: {
+          CustomerId: {
             type: Sequelize.UUID,
             allowNull: false,
             references: {
-              model: 'Client',
+              model: 'Customer',
               key: 'Id'
             }
           },
@@ -154,11 +154,11 @@ module.exports = {
             type: Sequelize.STRING(30),
             allowNull: true
           },
-          ClientId: {
+          CustomerId: {
             type: Sequelize.UUID,
             allowNull: false,
             references: {
-              model: 'Client',
+              model: 'Customer',
               key: 'Id'
             }
           },
@@ -180,11 +180,11 @@ module.exports = {
             primaryKey: true,
             allowNull: false
           },
-          ClientId: {
+          CustomerId: {
             type: Sequelize.UUID,
             allowNull: false,
             references: {
-              model: 'Client',
+              model: 'Customer',
               key: 'Id'
             }
           },
@@ -223,7 +223,7 @@ module.exports = {
       queryInterface.dropTable('Scheduling'),
       queryInterface.dropTable('Address'),
       queryInterface.dropTable('Phone'),
-      queryInterface.dropTable('Client'),
+      queryInterface.dropTable('Customer'),
       queryInterface.dropTable('PhoneType'),
       queryInterface.dropTable('ServiceType')
     ])
