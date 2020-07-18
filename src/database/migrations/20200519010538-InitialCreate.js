@@ -174,6 +174,20 @@ module.exports = {
       ),
 
       queryInterface.createTable(
+        'SchedulingStatus', {
+          Id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            allowNull: false
+          },
+          Name: {
+            type: Sequelize.STRING(20),
+            allowNull: false
+          }
+        }
+      ),
+
+      queryInterface.createTable(
         'Scheduling', {
           Id: {
             type: Sequelize.UUID,
@@ -204,6 +218,14 @@ module.exports = {
               key: 'Id'
             }
           },
+          StatusId: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+              model: 'SchedulingStatus',
+              key: 'Id'
+            }
+          },
           CreatedAt: {
             type: Sequelize.DATE,
             allowNull: false
@@ -221,6 +243,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.dropTable('Scheduling'),
+      queryInterface.dropTable('SchedulingStatus'),
       queryInterface.dropTable('Address'),
       queryInterface.dropTable('Phone'),
       queryInterface.dropTable('Customer'),
