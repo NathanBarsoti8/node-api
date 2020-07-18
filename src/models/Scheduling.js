@@ -10,7 +10,8 @@ class Scheduling extends Model {
             customerId: DataTypes.UUID,
             date: DataTypes.DATEONLY,
             timeTable: DataTypes.STRING,
-            serviceTypeId: DataTypes.INTEGER
+            serviceTypeId: DataTypes.INTEGER,
+            statusId: DataTypes.INTEGER
         }, {
             sequelize
         });

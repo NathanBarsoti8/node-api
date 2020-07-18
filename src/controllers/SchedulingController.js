@@ -3,7 +3,12 @@ const sequelize = require('../config/sequelize');
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment'); 
 const paginate = require('jw-paginate');
-const Customer = require('../models/Customer')
+const Customer = require('../models/Customer');
+
+const schedulingStatus = {
+    SCHEDULED: 1,
+    DONE: 2
+}
 
 class SchedulingController {
     getAll(req, res) {
@@ -34,12 +39,15 @@ class SchedulingController {
         sequelize.query(`SELECT
         S.Id as schedulingId, S.date, S.timeTable,
         ST.Id as serviceTypeId, ST.name as serviceType,
+        SS.Id as statusId, SS.name as status,
         
 		C.Id AS customerId, C.name as customerName
     
         FROM Scheduling S
 		INNER JOIN ServiceType ST
-		ON S.ServiceTypeId = ST.Id
+        ON S.ServiceTypeId = ST.Id
+        INNER JOIN SchedulingStatus SS
+		ON S.StatusId = SS.Id
         INNER JOIN Customer C
         ON S.CustomerId = C.Id
     
@@ -60,6 +68,7 @@ class SchedulingController {
 
         scheduling = req.body
         scheduling.id = uuidv4();
+        scheduling.statusId = schedulingStatus.SCHEDULED;
 
         const today = moment(new Date(), "DD-MM-YYYY");
         const date = moment(new Date(scheduling.date), "DD-MM-YYYY");
