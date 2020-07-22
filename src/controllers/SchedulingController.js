@@ -129,6 +129,9 @@ class SchedulingController {
             }
         })
         .then(schedule => {
+            if (schedule == null)
+                return res.status(404).send({ msg: 'Consulta não encontrada' })
+
             if (req.body.timeTable) {
 
                 let dateFilter;
