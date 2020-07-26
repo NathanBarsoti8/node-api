@@ -115,13 +115,14 @@ class SchedulingController {
     }
 
     update(req, res) {
-        if (req.body.date) {
-            const today = moment(new Date(), "DD-MM-YYYY");
-            const date = moment(new Date(req.body.date), "DD-MM-YYYY");
+        const today = moment().format('YYYY-MM-DD');
+        const date = moment(req.body.date).format('YYYY-MM-DD');
 
-            if (date < today)
-                return res.status(400).send({ msg: 'Data da consulta menor que a data atual' })
-        }
+        console.log('today', today)
+        console.log('date', date)
+
+        if (date < today)
+            return res.status(400).send({ msg: 'Data da consulta menor que a data atual' })
 
         Scheduling.findOne({
             where: {
@@ -133,18 +134,9 @@ class SchedulingController {
                 return res.status(404).send({ msg: 'Consulta não encontrada' })
 
             if (req.body.timeTable) {
-
-                let dateFilter;
-                let invalidTime;
-            
-                if (req.body.date)
-                    dateFilter = req.body.date
-                else
-                    dateFilter = schedule.dataValues.date
-
                 Scheduling.findAll({
                     where: {
-                        date: dateFilter
+                        date: date
                     }
                 })
                 .then(schedules => {
@@ -159,6 +151,8 @@ class SchedulingController {
                             });
                     }
 
+                    let invalidTime;
+                    
                     schedules.forEach(x => {
                         if (x.dataValues.timeTable == req.body.timeTable)
                             invalidTime = true;
