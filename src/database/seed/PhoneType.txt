@@ -1,8 +1,0 @@
-Id	Name
-1	Celular
-2	Casa
-3	Outro
-
-insert into PhoneType values (1, 'Celular')
-insert into PhoneType values (2, 'Casa')
-insert into PhoneType values (3, 'Outro')
