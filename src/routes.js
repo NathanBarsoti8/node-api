@@ -8,7 +8,7 @@ const SchedulingController = require('./controllers/SchedulingController');
 
 
 routes.get('/', (req, res) => {
-    return res.json({ msg: 'Api em Node.js para se comunicar com uma aplicação Angular - Dentist Control' });
+    return res.json({ msg: 'Dentist Control API - construída em Node.js para se comunicar com uma aplicação Angular' });
 });
 
 //ROUTES

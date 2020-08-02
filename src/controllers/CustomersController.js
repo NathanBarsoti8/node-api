@@ -9,7 +9,7 @@ const { Op } = require('sequelize');
 class CustomersController {
     getAll(req, res) {
         const page = parseInt(req.query.page);
-        const pageSize = 10;
+        const pageSize = parseInt(req.query.pageSize);
         let status;
 
         if (req.query.status === 'false')
