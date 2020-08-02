@@ -19,7 +19,10 @@ class SchedulingController {
             include: [{
                 model: Customer,
                 attributes: ["name"]
-            }]
+            }],
+            order: [
+                ['date', 'ASC']
+            ]
         })
         .then(schedules => {
             if (schedules == null || schedules.length == 0)
@@ -92,25 +95,27 @@ class SchedulingController {
                         return res.status(500).send({ msg: error })
                     })
             }
-                
-            schedule.forEach(x => {
-                if (x.dataValues.timeTable == scheduling.timeTable)
-                    invalidTime = true;
-            })
-
-            if (invalidTime)
-                return res.status(400).send({ msg: 'Nesse horário já existe uma consulta' });
-
-            else if (!invalidTime) {
-                Scheduling.create(scheduling)
-                    .then(result => {
-                        if (result)
-                            return res.status(200).send({ msg: 'Consulta marcada com sucesso' });
-                    })
-                    .catch(error => {
-                        return res.status(500).send({ msg: error })
-                    });
-            }
+            else {
+                schedule.forEach(x => {
+                    if (x.dataValues.timeTable == scheduling.timeTable)
+                        invalidTime = true;
+                })
+    
+                if (invalidTime)
+                    return res.status(400).send({ msg: 'Nesse horário já existe uma consulta' });
+    
+                else if (!invalidTime) {
+                    Scheduling.create(scheduling)
+                        .then(result => {
+                            if (result)
+                                return res.status(200).send({ msg: 'Consulta marcada com sucesso' });
+                        })
+                        .catch(error => {
+                            return res.status(500).send({ msg: error })
+                        });
+                }
+            }    
+            
         });
     }
 
