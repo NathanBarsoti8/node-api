@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const moment = require('moment'); 
 const paginate = require('jw-paginate');
 const Customer = require('../models/Customer');
+const { Op } = require('sequelize');
 
 const schedulingStatus = {
     SCHEDULED: 1,
@@ -14,7 +15,7 @@ class SchedulingController {
     getAll(req, res) {
         const page = parseInt(req.query.page);
         const pageSize = 10;
-        
+
         Scheduling.findAll({
             include: [{
                 model: Customer,
@@ -22,7 +23,13 @@ class SchedulingController {
             }],
             order: [
                 ['date', 'ASC']
-            ]
+            ],
+            where: {
+                date: {
+                    [Op.lte]: `${req.query.finishDate}`,
+                    [Op.gte]: `${req.query.startDate}`
+                }
+            }
         })
         .then(schedules => {
             if (schedules == null || schedules.length == 0)
