@@ -11,6 +11,20 @@ const schedulingStatus = {
     DONE: 2
 }
 
+/* 
+
+NEED TO FIX WARNING ABOUT DATE
+
+possible solution
+
+let date = moment(new Date(req.query.updated_at)).format()
+
+works in another repository
+
+--> just a note to remember
+
+*/
+
 class SchedulingController {
     getAll(req, res) {
         const page = parseInt(req.query.page);
