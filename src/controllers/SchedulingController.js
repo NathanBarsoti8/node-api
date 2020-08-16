@@ -30,6 +30,15 @@ class SchedulingController {
         const page = parseInt(req.query.page);
         const pageSize = 10;
 
+        let params = [];
+        if (req.query.customer.length > 1) {
+            params.push({
+                customerId: {
+                    [Op.eq]: `${req.query.customer}`
+                }
+            });
+        }
+        
         Scheduling.findAll({
             include: [{
                 model: Customer,
@@ -42,7 +51,8 @@ class SchedulingController {
                 date: {
                     [Op.lte]: `${req.query.finishDate}`,
                     [Op.gte]: `${req.query.startDate}`
-                }
+                },
+                [Op.and]: params
             }
         })
         .then(schedules => {
