@@ -31,7 +31,7 @@ class SchedulingController {
         const pageSize = 10;
 
         let params = [];
-        if (req.query.customer.length > 1) {
+        if (req.query.customer != undefined && req.query.customer != null && req.query.customer !== 'null' && req.query.customer !== 'undefined') {
             params.push({
                 customerId: {
                     [Op.eq]: `${req.query.customer}`
