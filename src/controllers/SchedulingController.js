@@ -238,6 +238,37 @@ class SchedulingController {
         })
         .catch(error => res.status(500).send({ msg: error }));
     }
+
+    getByPeriod(req, res) {
+        let date = moment(new Date().setDate(new Date().getDate() + 30)).format('YYYY-MM-DD');
+        let dateLess15 = moment(new Date(date).setDate(new Date(date).getDate() - 15)).format('YYYY-MM-DD');
+        let dateMore15 = moment(new Date(date).setDate(new Date(date).getDate() + 15)).format('YYYY-MM-DD');
+
+        Scheduling.findAll({
+            include: [{
+                model: Customer,
+                attributes: ["name"]
+            }],
+            order: [
+                ['date', 'ASC']
+            ],
+            where: {
+                date: {
+                    [Op.lte]: `${dateMore15}`,
+                    [Op.gt]: `${dateLess15}`
+                }
+            }
+        })
+        .then(schedules => {
+            if (schedules == null || schedules.length == 0)
+                return res.status(204).send({ msg: 'Nenhum dado encontrado' })
+
+            return res.status(200).json({ schedules })
+        })
+        .catch(error => {
+            return res.status(500).send({ msg: error })
+        });
+    }
 }
 
 module.exports = new SchedulingController();

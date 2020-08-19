@@ -23,6 +23,7 @@ routes.put('/customers/:id/update', CustomersController.update);
 
 routes.get('/schedules', SchedulingController.getAll);
 routes.get('/schedules/:id', SchedulingController.getById);
+routes.get('/schedules/internal/byPeriod', SchedulingController.getByPeriod);
 routes.post('/schedules', SchedulingController.create);
 routes.put('/schedules/:id', SchedulingController.update);
 routes.delete('/schedules/:id', SchedulingController.delete);
