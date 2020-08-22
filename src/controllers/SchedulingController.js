@@ -245,21 +245,25 @@ class SchedulingController {
         let dateMore15 = moment(new Date(date).setDate(new Date(date).getDate() + 15)).format('YYYY-MM-DD');
 
         Scheduling.findAll({
-            include: [{
-                model: Customer,
-                attributes: ["name"]
-            }],
+            attributes: ['date', 'timeTable'],
             order: [
                 ['date', 'ASC']
             ],
             where: {
                 date: {
                     [Op.lte]: `${dateMore15}`,
-                    [Op.gt]: `${dateLess15}`
+                    [Op.gte]: `${dateLess15}`
                 }
-            }
+            },
+            group: ['Scheduling.date', 'Scheduling.timeTable']
         })
         .then(schedules => {
+            let arr = [];
+            for (var i = 0; i < schedules.length; i++) {
+                arr.push(schedules[i].dataValues)
+            }
+            schedules = transformArr(arr);
+
             if (schedules == null || schedules.length == 0)
                 return res.status(204).send({ msg: 'Nenhum dado encontrado' })
 
@@ -272,3 +276,18 @@ class SchedulingController {
 }
 
 module.exports = new SchedulingController();
+
+function transformArr(orig) {
+    var newArr = [],
+        dates = {},
+        newItem, i, j, cur;
+    for (i = 0, j = orig.length; i < j; i++) {
+        cur = orig[i];
+        if (!(cur.date in dates)) {
+            dates[cur.date] = {date: cur.date, timeTables: []};
+            newArr.push(dates[cur.date]);
+        }
+        dates[cur.date].timeTables.push(cur.timeTable);
+    }
+    return newArr;
+}
