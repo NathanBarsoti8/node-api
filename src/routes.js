@@ -5,6 +5,7 @@ const routes = express.Router();
 const ResourcesController = require('./controllers/ResourcesController');
 const CustomersController = require('./controllers/CustomersController');
 const SchedulingController = require('./controllers/SchedulingController');
+const DashboardController = require('./controllers/DashboardController');
 
 
 routes.get('/', (req, res) => {
@@ -14,6 +15,8 @@ routes.get('/', (req, res) => {
 //ROUTES
 routes.get('/resources/phonesType', ResourcesController.getPhonesType);
 routes.get('/resources/servicesType', ResourcesController.getServicesType);
+
+routes.get('/dashboard/birthdays', DashboardController.getMonthBirthdays);
 
 routes.get('/customers', CustomersController.getAll);
 routes.get('/customers/:id', CustomersController.getById);
