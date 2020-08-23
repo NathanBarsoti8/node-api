@@ -10,7 +10,7 @@ class DashboardController {
         let month = literal(`MONTH(Customer.BirthDate) = ${new Date().getMonth() + 1}`)
 
         Customer.findAll({
-                attributes: ['id', 'name', 'birthDate', 'sex'],
+                attributes: ['id', 'name', 'birthDate'],
                 where: {
                     isActive: 1,
                     month
