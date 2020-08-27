@@ -17,6 +17,7 @@ routes.get('/resources/phonesType', ResourcesController.getPhonesType);
 routes.get('/resources/servicesType', ResourcesController.getServicesType);
 
 routes.get('/dashboard/birthdays', DashboardController.getMonthBirthdays);
+routes.get('/dashboard/schedules', DashboardController.getSchedulesByDay);
 
 routes.get('/customers', CustomersController.getAll);
 routes.get('/customers/:id', CustomersController.getById);
