@@ -25,8 +25,38 @@ class DashboardController {
 
                 return res.status(200).json({ customers });
             })
-            .catch(error => res.status(500).send({ msg: error }));
-    }   
+            .catch(error => {
+                return res.status(500).send({ msg: error })
+            });
+    }
+
+    getSchedulesByDay(req, res) {
+        Scheduling.findAll({
+            attributes: ['date', 'timeTable'],
+            include: [{
+                model: Customer,
+                attributes: ['name'],
+                required: true
+            }],
+            order: [
+                ['timeTable', 'ASC']
+            ],
+            where: {
+                date: {
+                    [Op.eq]: req.query.day
+                }
+            }
+        })
+        .then(schedules => {
+            if (schedules == null || schedules.length == 0)
+                return res.status(204).send({ msg: 'Nenhum dado encontrado' });
+
+            return res.status(200).json(schedules);
+        })
+        .catch(error => {
+            return res.status(500).send({ msg: error })
+        });
+    }
 
 }
 
