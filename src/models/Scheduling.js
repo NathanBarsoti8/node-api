@@ -19,6 +19,7 @@ class Scheduling extends Model {
 
     static associate(models) {
         this.belongsTo(models.Customer);
+        this.belongsTo(models.ServiceType);
     }
 }
 

@@ -1,5 +1,6 @@
 const Customer = require('../models/Customer');
 const Scheduling = require('../models/Scheduling');
+const ServiceType = require('../models/ServiceType');
 const Sequelize = require('sequelize');
 const { Op } = require('sequelize');
 const moment = require('moment'); 
@@ -37,6 +38,10 @@ class DashboardController {
                 model: Customer,
                 attributes: ['name'],
                 required: true
+            }, {
+                model: ServiceType,
+                attributes: ['name'],
+                required: false
             }],
             order: [
                 ['timeTable', 'ASC']

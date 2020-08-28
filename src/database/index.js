@@ -22,5 +22,6 @@ SchedulingStatus.init(connection);
 
 Scheduling.associate(connection.models);
 Customer.associate(connection.models);
+ServiceType.associate(connection.models);
 
 module.exports = connection;
