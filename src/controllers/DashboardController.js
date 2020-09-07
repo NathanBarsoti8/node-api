@@ -66,10 +66,13 @@ class DashboardController {
     }
 
     async sendWppMessage(req, res) {
+        let customerId = req.query.option.toLowerCase() == 'schedule' ? req.body.Customer.id : req.body.id;
+        let customerName = req.query.option.toLowerCase() == 'schedule' ? req.body.Customer.name : req.body.name;
+
         let phone = await Phone.findOne({
             attributes: ['id', 'ddd', 'phoneNumber'],
             where: {
-                customerId: req.body.Customer.id,
+                customerId: customerId,
                 typeId: 1
             }
         });
@@ -78,8 +81,16 @@ class DashboardController {
         const contact = `55${phone.ddd}${phone.phoneNumber}`;
         const lineBreak = "%0A";
         const asterisk = "%2A";
-        const tagText = "&text="
-        const text = `Olá, ${req.body.Customer.name}! Tudo bem? ${lineBreak} Você tem uma consulta às ${asterisk}${req.body.timeTable}${asterisk} no dia ${asterisk}${req.query.date}${asterisk} ${lineBreak} Podemos confirmar?`;
+        const tagText = "&text=";
+        let text = '';
+
+        if (req.query.option.toLowerCase() == 'schedule') {
+            text = `Olá, ${customerName}! Tudo bem? ${lineBreak}Você tem uma consulta às ${asterisk}${req.body.timeTable}${asterisk} no dia ${asterisk}${req.query.date}${asterisk} ${lineBreak}Podemos confirmar?`;
+ 
+        }
+        else if (req.query.option.toLowerCase() == 'birthday') {
+            text = `Parabéns, ${customerName}! ${lineBreak}Desejamos a você muitas felicidades ${lineBreak}Aproveite o seu dia!` 
+        }
 
         const link = `${baseUrl}${contact}${tagText}${text}`
 
