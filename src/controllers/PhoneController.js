@@ -3,21 +3,23 @@ const { v4: uuidv4 } = require('uuid');
 
 class PhoneController {
     create(obj) {
-        let phone = new Phone();
+        for (const phone of obj.phones) {
+            let phoneInfo = new Phone();
 
-        phone.id = uuidv4();
-        phone.typeId = obj.phoneType;
-        phone.ddd = obj.ddd;
-        phone.phoneNumber = obj.phoneNumber;
-        phone.customerId = obj.id;
+            phoneInfo.id = uuidv4();
+            phoneInfo.typeId = phone.phoneType;
+            phoneInfo.ddd = phone.ddd;
+            phoneInfo.phoneNumber = phone.phoneNumber;
+            phoneInfo.customerId = obj.id;
 
-        Phone.create(phone.dataValues)
-            .then(result => {
-                if (result)
-                    return result.dataValues;
-                else
-                    return null;
-            });
+            Phone.create(phoneInfo.dataValues)
+                .then(result => {
+                    if (result)
+                        return result.dataValues;
+                    else
+                        return null;
+                })
+        }
     }
 
     updateByCustomerId(customerId, obj) {
