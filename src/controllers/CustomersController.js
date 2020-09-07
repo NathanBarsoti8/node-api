@@ -1,5 +1,5 @@
 const Customer = require('../models/Customer');
-const sequelize = require('../config/sequelize');
+const Phone = require('../models/Phone');
 const { v4: uuidv4 } = require('uuid');
 const AddressController = require('./AddressController');
 const PhoneController = require('./PhoneController');
@@ -41,32 +41,20 @@ class CustomersController {
     }
 
     getById(req, res) {
-        sequelize.query(`SELECT
-        C.Id as customerId, C.name, C.cpf, C.birthDate,
-        C.sex, C.email, C.job, C.isActive,
-    
-        P.Id as phoneId, P.phoneNumber, P.DDD,
-	    PT.Name as phoneType, PT.Id as phoneTypeId,
-    
-        A.Id as addressId, A.zipCode, A.address,
-        A.addressNumber, A.neighborhood, 
-        A.complement, A.city, A.state
-    
-        FROM Customer C
-        LEFT JOIN Phone P
-        ON C.Id = P.CustomerId
-        LEFT JOIN PhoneType PT
-        ON P.TypeId = PT.Id
-        LEFT JOIN Address A
-        ON C.Id = A.CustomerId
-    
-        WHERE C.Id = '${req.params.id}'`)
+        Customer.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Phone,
+                    attributes: ['id', 'typeId', 'ddd', 'phoneNumber', 'customerId'],
+                    required: false
+                }
+            ]
+        })
             .then(customer => {
-
-                if (customer[0] == null || customer[0].length == 0)
+                if (customer == null || customer.length == 0)
                     return res.status(404).send({ msg: 'Cliente não encontrado'});
 
-                return res.json(customer[0]);
+                return res.json(customer);
             })
             .catch(error => res.status(500).send({ msg: error }));
     }
