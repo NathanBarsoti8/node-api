@@ -15,6 +15,11 @@ class Phone extends Model {
             sequelize
         });
     }
+
+    static associate(models) {
+        this.belongsTo(models.Customer)
+    }
+
 }
 
 module.exports = Phone;

@@ -21,6 +21,7 @@ class Customer extends Model {
 
     static associate(models) {
         this.hasOne(models.Scheduling);
+        this.hasMany(models.Phone);
     }
 }
 
