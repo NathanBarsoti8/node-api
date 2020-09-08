@@ -1,5 +1,6 @@
 const Customer = require('../models/Customer');
 const Phone = require('../models/Phone');
+const Address = require('../models/Address');
 const { v4: uuidv4 } = require('uuid');
 const AddressController = require('./AddressController');
 const PhoneController = require('./PhoneController');
@@ -46,6 +47,11 @@ class CustomersController {
                 {
                     model: Phone,
                     attributes: ['id', 'typeId', 'ddd', 'phoneNumber', 'customerId'],
+                    required: false
+                },
+                {
+                    model: Address,
+                    attributes: ['id', 'zipCode', 'state', 'city', 'address', 'addressNumber', 'neighborhood', 'complement', 'customerId'],
                     required: false
                 }
             ]
