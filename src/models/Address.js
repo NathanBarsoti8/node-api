@@ -19,6 +19,10 @@ class Address extends Model {
             sequelize
         });
     }
+
+    static associate(models) {
+        this.belongsTo(models.Customer)
+    }
 }
 
 module.exports = Address;
