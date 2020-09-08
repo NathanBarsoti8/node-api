@@ -23,5 +23,7 @@ SchedulingStatus.init(connection);
 Scheduling.associate(connection.models);
 Customer.associate(connection.models);
 ServiceType.associate(connection.models);
+Address.associate(connection.models);
+Phone.associate(connection.models)
 
 module.exports = connection;
