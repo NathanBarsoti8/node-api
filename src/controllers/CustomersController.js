@@ -46,11 +46,13 @@ class CustomersController {
             include: [
                 {
                     model: Phone,
+                    as: 'phones',
                     attributes: ['id', 'typeId', 'ddd', 'phoneNumber', 'customerId'],
                     required: false
                 },
                 {
                     model: Address,
+                    as: 'address',
                     attributes: ['id', 'zipCode', 'state', 'city', 'address', 'addressNumber', 'neighborhood', 'complement', 'customerId'],
                     required: false
                 }
