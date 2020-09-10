@@ -21,8 +21,14 @@ class Customer extends Model {
 
     static associate(models) {
         this.hasOne(models.Scheduling);
-        this.hasMany(models.Phone);
-        this.hasOne(models.Address);
+        this.hasMany(models.Phone, {
+            foreignKey: 'customerId',
+            as: 'phones'
+        });
+        this.hasOne(models.Address, {
+            foreignKey: 'customerId',
+            as: 'address'
+        });
     }
 }
 
