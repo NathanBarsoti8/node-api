@@ -240,9 +240,11 @@ class SchedulingController {
     }
 
     getByPeriod(req, res) {
-        let date = moment(new Date().setDate(new Date().getDate() + 30)).format('YYYY-MM-DD');
-        let dateLess15 = moment(new Date(date).setDate(new Date(date).getDate() - 15)).format('YYYY-MM-DD');
-        let dateMore15 = moment(new Date(date).setDate(new Date(date).getDate() + 15)).format('YYYY-MM-DD');
+        if (!req.query.initialDate || !req.query.finalDate) 
+            return res.status(400).send({ msg: 'Necessário enviar data inicial e data final' })
+        
+        let initialDate = req.query.initialDate;
+        let finalDate = req.query.finalDate;
 
         Scheduling.findAll({
             attributes: ['date', 'timeTable'],
@@ -251,8 +253,8 @@ class SchedulingController {
             ],
             where: {
                 date: {
-                    [Op.lte]: `${dateMore15}`,
-                    [Op.gte]: `${dateLess15}`
+                    [Op.lte]: `${finalDate}`,
+                    [Op.gte]: `${initialDate}`
                 }
             },
             group: ['Scheduling.date', 'Scheduling.timeTable']
