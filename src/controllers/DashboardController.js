@@ -34,6 +34,9 @@ class DashboardController {
     }
 
     getSchedulesByDay(req, res) {
+        if (!req.query.day) 
+            return res.status(400).send({ msg: 'É necessário mandar uma data para fazer a busca' })
+
         Scheduling.findAll({
             attributes: ['date', 'timeTable'],
             include: [{
