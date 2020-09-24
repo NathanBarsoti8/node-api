@@ -150,7 +150,7 @@ class SchedulingController {
         });
     }
 
-    update(req, res) {
+    async update(req, res) {
         const today = moment().format('YYYY-MM-DD');
         const date = moment(req.body.date).format('YYYY-MM-DD');
 
@@ -160,17 +160,17 @@ class SchedulingController {
         if (date < today)
             return res.status(400).send({ msg: 'Data da consulta menor que a data atual' })
 
-        Scheduling.findOne({
+        await Scheduling.findOne({
             where: {
                 id: req.params.id
             }
         })
-        .then(schedule => {
+        .then(async schedule => {
             if (schedule == null)
                 return res.status(404).send({ msg: 'Consulta não encontrada' })
 
             if (req.body.timeTable) {
-                Scheduling.findAll({
+                await Scheduling.findAll({
                     where: {
                         date: date
                     }
