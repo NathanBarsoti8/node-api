@@ -169,7 +169,7 @@ class SchedulingController {
             if (schedule == null)
                 return res.status(404).send({ msg: 'Consulta não encontrada' })
 
-            if (req.body.timeTable) {
+            if (req.body.timeTable != schedule.timeTable) {
                 await Scheduling.findAll({
                     where: {
                         date: date
@@ -241,10 +241,13 @@ class SchedulingController {
 
     getByPeriod(req, res) {
         if (!req.query.initialDate || !req.query.finalDate) 
-            return res.status(400).send({ msg: 'Necessário enviar data inicial e data final' })
+            return res.status(400).send({ msg: 'Necessário enviar data inicial e data final' });
         
         let initialDate = req.query.initialDate;
         let finalDate = req.query.finalDate;
+
+        if (new Date(initialDate) > new Date(finalDate))
+            return res.status(400).send({ msg: 'Data final maior que a data inicial' });
 
         Scheduling.findAll({
             attributes: ['date', 'timeTable'],
