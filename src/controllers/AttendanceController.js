@@ -29,9 +29,20 @@ class AttendanceController {
             .catch(error => res.status(500).send({ msg: error }));
     }
 
-    
-
-    
+    delete(req, res) {
+        ServiceType.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(serviceType => {
+            if (serviceType)
+                return res.status(200).send({ msg: 'Consulta deletada com sucesso' });
+            else 
+                return res.status(400).send({ msg: 'Ocorreu um erro ao deletar tipo de serviço'});
+        })
+        .catch(error => res.status(500).send({ msg: error }));
+    }
 
 }
 
