@@ -36,5 +36,6 @@ routes.delete('/schedules/:id', SchedulingController.delete);
 
 routes.post('/servicesType', AttendanceController.create);
 routes.put('/servicesType/:id', AttendanceController.update);
+routes.delete('/servicesType/:id', AttendanceController.delete);
 
 module.exports = routes;
