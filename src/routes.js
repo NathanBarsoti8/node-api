@@ -6,6 +6,7 @@ const ResourcesController = require('./controllers/ResourcesController');
 const CustomersController = require('./controllers/CustomersController');
 const SchedulingController = require('./controllers/SchedulingController');
 const DashboardController = require('./controllers/DashboardController');
+const AttendanceController = require('./controllers/AttendanceController');
 
 
 routes.get('/', (req, res) => {
@@ -32,5 +33,8 @@ routes.get('/schedules/internal/byPeriod', SchedulingController.getByPeriod);
 routes.post('/schedules', SchedulingController.create);
 routes.put('/schedules/:id', SchedulingController.update);
 routes.delete('/schedules/:id', SchedulingController.delete);
+
+routes.post('/servicesType', AttendanceController.create);
+routes.put('/servicesType/:id', AttendanceController.update);
 
 module.exports = routes;
