@@ -1,16 +1,33 @@
 const ServiceType = require('../models/ServiceType');
+const sequelize = require('../config/sequelize');
+const { Op } = require('sequelize');
 
 class AttendanceController {
     
-    create(req, res) {
-        ServiceType.create(req.body)
-            .then(result => {
-                if (result) 
-                    return res.status(200).send({ msg: 'Tipo de serviço salvo com sucesso' });
-                else
-                    return res.status(400).send({ msg: 'Ocorreu um erro ao salvar novo tipo de serviço'});
-            })
-            .catch(error => res.status(500).send({ msg: error }));
+    async create(req, res) {
+        await ServiceType.findAll({
+            attributes: ['id', 'name'],
+            where: {
+                name: {
+                    [Op.like]: `%${req.body.name}%`
+                }
+            }
+        })
+        .then(types => {
+            if (types.length > 0) 
+                return res.status(400).send({ msg: 'Já existe um tipo de serviço com esse nome' });
+            else {
+                sequelize.query(` INSERT INTO [ServiceType] ([name]) VALUES ('${req.body.name}') `)
+                    .then(serviceType => {
+                        if (serviceType) 
+                            return res.status(200).send({ msg: 'Tipo de serviço salvo com sucesso' });
+                        else 
+                            return res.status(400).send({ msg: 'Ocorreu um erro ao salvar novo tipo de serviço' });
+                    })
+                    .catch(error => res.status(500).send({ msg: error }));
+            }
+        })
+        .catch(error => res.status(500).send({ msg: error }));
     }
 
     update(req, res) {
