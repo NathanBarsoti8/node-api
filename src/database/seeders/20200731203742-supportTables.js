@@ -18,35 +18,27 @@ module.exports = {
       ]),
 
       queryInterface.bulkInsert('ServiceType', [{
-          id: 1,
           name: 'Clínica geral'
         },
         {
-          id: 2,
           name: 'Clareamento'
         },
         {
-          id: 3,
           name: 'Prótese dentária'
         },
         {
-          id: 4,
           name: 'Tratamento de cárie'
         },
         {
-          id: 5,
           name: 'Ortodontia'
         },
         {
-          id: 6,
           name: 'Periodontia'
         },
         {
-          id: 7,
           name: 'Endodontia'
         },
         {
-          id: 8,
           name: 'Estomatologia'
         }
       ]),
