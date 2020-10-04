@@ -1,4 +1,5 @@
 const ServiceType = require('../models/ServiceType');
+const Scheduling = require('../models/Scheduling');
 const sequelize = require('../config/sequelize');
 const { Op } = require('sequelize');
 
@@ -46,7 +47,13 @@ class AttendanceController {
             .catch(error => res.status(500).send({ msg: error }));
     }
 
-    delete(req, res) {
+    async delete(req, res) {
+        await Scheduling.destroy({
+            where: {
+                serviceTypeId: req.params.id
+            }
+        })
+
         ServiceType.destroy({
             where: {
                 id: req.params.id
