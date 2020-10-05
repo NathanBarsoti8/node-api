@@ -17,7 +17,8 @@ class ResourcesController {
 
     getServicesType(req, res) {
         ServiceType.findAll({
-                attributes: ['id', 'name']
+                attributes: ['id', 'name'],
+                order: ['name']
             })
             .then(types => {
                 if (types == null || types.length == 0)
